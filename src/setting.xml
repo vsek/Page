@@ -1,0 +1,6 @@
+<setting>
+    <presenter>
+        <name>Page</name>
+        <resource>page</resource>
+    </presenter>
+</setting>
