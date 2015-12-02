@@ -1,0 +1,2 @@
+# Page
+Správa statických stránek
