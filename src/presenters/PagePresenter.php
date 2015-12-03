@@ -30,7 +30,7 @@ class PagePresenter extends BasePresenterM{
         $this->modules = array('' => $this->translator->translate('page.noModule'));
         if(isset($this->context->parameters['page']) && !is_null($this->context->parameters['page']['modules'])){
             foreach($this->context->parameters['page']['modules'] as $module){
-                $this->modules[\Nette\Utils\Strings::webalize($this->translator->translate($module))] = $this->translator->translate($module);
+                $this->modules[\Nette\Utils\Strings::webalize($module)] = $this->translator->translate($module);
             }
         }
     }
