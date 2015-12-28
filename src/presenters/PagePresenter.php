@@ -37,9 +37,9 @@ class PagePresenter extends BasePresenterM{
     
     private function createTreeSelect(\Nette\Database\Table\ActiveRow $page = null, $level = 0){
         if(is_null($page)){
-            $pages = $this->model->where('parent_id ?', null);
+            $pages = $this->model->where('parent_id ?', null)->where('language_id', $this->language['id']);
         }else{
-            $pages = $this->model->where('parent_id = ?', $page['id']);
+            $pages = $this->model->where('parent_id = ?', $page['id'])->where('language_id', $this->language['id']);
         }
         foreach($pages->order('position') as $pag){
             $name = '';
@@ -64,12 +64,12 @@ class PagePresenter extends BasePresenterM{
     public function actionOrdering($id, $order){
         $this->exist($id);
         if($order == 'down'){
-            $down = $this->model->where('position > ?', $this->row['position'])->where('parent_id ?', $this->row['parent_id'])->order('position ASC')->limit(1)->fetch();
+            $down = $this->model->where('position > ?', $this->row['position'])->where('language_id', $this->language['id'])->where('parent_id ?', $this->row['parent_id'])->order('position ASC')->limit(1)->fetch();
             $position = $down->position;
             $down->update(array('position' => $this->row['position']));
             $this->row->update(array('position' => $position));
         }else{
-            $up = $this->model->where('position < ?', $this->row['position'])->where('parent_id ?', $this->row['parent_id'])->order('position DESC')->limit(1)->fetch();
+            $up = $this->model->where('position < ?', $this->row['position'])->where('language_id', $this->language['id'])->where('parent_id ?', $this->row['parent_id'])->order('position DESC')->limit(1)->fetch();
             $position = $up->position;
             $up->update(array('position' => $this->row->position));
             $this->row->update(array('position' => $position));
@@ -108,7 +108,7 @@ class PagePresenter extends BasePresenterM{
     }
     
     private function exist($id){
-        $this->row = $this->model->get($id);
+        $this->row = $this->model->where('language_id', $this->language['id'])->where('id', $id)->fetch();
         if(!$this->row){
             $this->flashMessage($this->translator->translate('admin.text.notitemNotExist'), 'error');
             $this->redirect('default');
@@ -193,6 +193,7 @@ class PagePresenter extends BasePresenterM{
             'parent_id' => (int)$values->parent_id == 0 ? null : (int)$values->parent_id,
             'h1' => $values->h1 == '' ? null : $values->h1,
             'external' => $values->external,
+            'language_id' => $this->language['id'],
         ));
         
         $this->flashMessage($this->translator->translate('admin.text.inserted'));
@@ -228,7 +229,7 @@ class PagePresenter extends BasePresenterM{
     protected function createComponentGrid(){
         $grid = new \App\Grid\GridTree('page');
 
-        $grid->setModel($this->model->where('parent_id ?', null));
+        $grid->setModel($this->model->where('parent_id ?', null)->where('language_id', $this->language['id']));
         $grid->addColumn(new \App\Grid\Column\Column('name', $this->translator->translate('page.name')));
         $grid->addColumn(new \App\Grid\Column\Column('link', $this->translator->translate('page.link')));
         $grid->addColumn(new \App\Grid\Column\YesNo('in_menu', $this->translator->translate('page.inMenu')));
