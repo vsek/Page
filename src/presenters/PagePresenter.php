@@ -9,7 +9,7 @@ use App\AdminModule\Form;
  *
  * @author vsek
  */
-class PagePresenter extends BasePresenterM{
+class PagePresenterM extends BasePresenterM{
     private $modules;
     
     /** @var \App\Model\Module\Page @inject */
@@ -22,6 +22,14 @@ class PagePresenter extends BasePresenterM{
     private $row = null;
     
     private $tree = array();
+    
+    public function actionNew(){
+        $this->template->setFile(dirname(__FILE__) . '/../templates/Page/new.latte');
+    }
+    
+    public function actionDefault(){
+        $this->template->setFile(dirname(__FILE__) . '/../templates/Page/default.latte');
+    }
     
     public function startup() {
         parent::startup();
@@ -158,6 +166,7 @@ class PagePresenter extends BasePresenterM{
     
     public function actionEdit($id){
         $this->exist($id);
+        $this->template->setFile(dirname(__FILE__) . '/../templates/Page/edit.latte');
     }
     
     public function actionDelete($id){
