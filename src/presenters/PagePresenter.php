@@ -10,7 +10,7 @@ use App\AdminModule\Form;
  * @author vsek
  */
 class PagePresenterM extends BasePresenterM{
-    private $modules;
+    protected $modules;
     
     /** @var \App\Model\Module\Page @inject */
     public $model;
@@ -19,9 +19,9 @@ class PagePresenterM extends BasePresenterM{
      *
      * @var \Nette\Database\Table\ActiveRow
      */
-    private $row = null;
+    protected $row = null;
     
-    private $tree = array();
+    protected $tree = array();
     
     public function actionNew(){
         $this->template->setFile(dirname(__FILE__) . '/../templates/Page/new.latte');
@@ -43,7 +43,7 @@ class PagePresenterM extends BasePresenterM{
         }
     }
     
-    private function createTreeSelect(\Nette\Database\Table\ActiveRow $page = null, $level = 0){
+    protected function createTreeSelect(\Nette\Database\Table\ActiveRow $page = null, $level = 0){
         if(is_null($page)){
             $pages = $this->model->where('parent_id ?', null)->where('language_id', $this->webLanguage);
         }else{
@@ -115,7 +115,7 @@ class PagePresenterM extends BasePresenterM{
         $this->redirect('edit', $this->row->id);
     }
     
-    private function exist($id){
+    protected function exist($id){
         $this->row = $this->model->where('language_id', $this->webLanguage)->where('id', $id)->fetch();
         if(!$this->row){
             $this->flashMessage($this->translator->translate('admin.text.notitemNotExist'), 'error');
