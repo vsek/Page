@@ -235,8 +235,8 @@ class PagePresenterM extends BasePresenterM{
         return $form;
     }
     
-    protected function createComponentGrid(){
-        $grid = new \App\Grid\GridTree('page');
+    protected function createComponentGrid($name){
+        $grid = new \App\Grid\GridTree('page', $this, $name);
 
         $grid->setModel($this->model->where('parent_id ?', null)->where('language_id', $this->webLanguage));
         $grid->addColumn(new \App\Grid\Column\Column('name', $this->translator->translate('page.name')));
