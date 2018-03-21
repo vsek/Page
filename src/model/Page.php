@@ -9,15 +9,7 @@ namespace App\Model\Module;
  */
 class Page extends \App\Model\BaseModel{
     private $table = 'page';
-    
-    /**
-     * Vrati hlavni polozky menu
-     * @return \Nette\Database\Table\Selection
-     */
-    public function getPages(){
-        return $this->where('in_menu', 'yes')->where('parent_id', null)->order('position');
-    }
-    
+
     /**
      * Vrati aktualni cislo pozice
      * @return int
