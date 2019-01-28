@@ -136,7 +136,7 @@ class PagePresenterM extends BasePresenterM{
         $form->addCheckbox('external', $this->translator->translate('page.externalLink'));
         $form->addSelect('parent_id', $this->translator->translate('page.parentPage'), $this->tree);
         $form->addSelect('module', $this->translator->translate('page.module'), $this->modules);
-        $form->addSpawEditor('text', $this->translator->translate('admin.form.text'));
+        $form->addCkEditor('text', $this->translator->translate('admin.form.text'));
         $form->addText('h1', $this->translator->translate('page.h1'));
         $form->addText('title', $this->translator->translate('page.title'));
         $form->addText('keywords', $this->translator->translate('page.keywords'));
@@ -222,7 +222,7 @@ class PagePresenterM extends BasePresenterM{
         $form->addCheckbox('external', $this->translator->translate('page.externalLink'));
         $form->addSelect('parent_id', $this->translator->translate('page.parentPage'), $this->tree);
         $form->addSelect('module', $this->translator->translate('page.module'), $this->modules);
-        $form->addSpawEditor('text', $this->translator->translate('admin.form.text'));
+        $form->addCkEditor('text', $this->translator->translate('admin.form.text'));
         $form->addText('h1', $this->translator->translate('page.h1'));
         $form->addText('title', $this->translator->translate('page.title'));
         $form->addText('keywords', $this->translator->translate('page.keywords'));
